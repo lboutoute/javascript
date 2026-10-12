@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ma vente de bd</title>
     <script src="js/scrpt.js" defer></script>
+    <link rel="stylesheet" href="css/vente.css">
   </head>
 <body>
     <header>
@@ -15,7 +16,7 @@
     </header>
     <main>
         <section class = base site >
-            <h2>le site numero 1 de vente de bande dessinée</h2>
+            <h2>mon site de vente de bd</h2>
                 <p></p>
         <form onssubmit="modifierbase(); return false;"
           id="formulaire-de-bd"
@@ -25,7 +26,7 @@
           <input 
             type="text" id="nom" value="sale-gosse" placeholder="Titre" required/>
           <input
-            type="text" id="auteur" value="tekenarr" placeholder="Auteur" required/>
+            type="text" id="nbpages" value="tekenarr" placeholder="Nombre de pages" required/>
           <input
             type="number" id="annee"  value="2026" placeholder="Année" required/>
           <input
@@ -41,11 +42,15 @@
         <section class = carte >
             <h2>resultat</h2>
                 <p id = nom-zone>a</p>
-                <p id = auteur-zone>b</p>
+                <p id = nbpages-zone>b</p>
                 <p id = annee-zone>c</p>
                 <p id = prix-zone>d</p>
                 
         </section>
+        
+
+
+
     </main>
     <footer></footer>
 </body>
