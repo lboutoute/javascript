@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ma Librairie — Étape 1</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-slate-100 text-slate-800 antialiased min-h-screen py-10 px-4">
+    <main class="max-w-4xl mx-auto space-y-6">
+      <header class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-slate-900 tracking-tight">
+          Mon Gestionnaire de Librairie
+        </h1>
+
+        <p class="text-slate-500 mt-1">Étape 1 : Manipulation directe du DOM</p>
+      </header>
+
+      <!-- Formulaire de modification -->
+      <section
+        class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm"
+      >
+        <h2 class="text-lg font-semibold text-slate-900 mb-4">
+          Modifier les informations du livre
+        </h2>
+
+        <form
+          id="formulaire-livre"
+          onsubmit="mettreAJourInfosLivre(event)"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
+          <input
+            type="text"
+            id="champ-titre"
+            value="Le Petit Prince"
+            placeholder="Titre"
+            required
+            class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+
+          <input
+            type="text"
+            id="champ-auteur"
+            value="Antoine de Saint-Exupéry"
+            placeholder="Auteur"
+            required
+            class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+
+          <input
+            type="number"
+            id="champ-annee"
+            value="1943"
+            placeholder="Année"
+            required
+            class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+
+          <input
+            type="number"
+            id="champ-prix"
+            value="12.00"
+            step="0.01"
+            placeholder="Prix (€)"
+            required
+            class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+
+          <button
+            type="submit"
+            class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition"
+          >
+            Mettre à jour la carte
+          </button>
+        </form>
+      </section>
+
+      <!-- Carte du livre ciblé par la modification -->
+      <section
+        class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm"
+      >
+        <h2 class="text-lg font-semibold text-slate-900 mb-4">
+          Aperçu de la carte
+        </h2>
+
+        <article
+          class="bg-slate-50 border border-slate-200 p-4 rounded-lg flex justify-between items-center max-w-md"
+        >
+          <section>
+            <h3 id="titre-livre" class="font-bold text-slate-900">
+              Le Petit Prince
+            </h3>
+
+            <p id="auteur-annee-livre" class="text-xs text-slate-500">
+              Antoine de Saint-Exupéry (1943)
+            </p>
+          </section>
+
+          <output
+            id="prix-livre"
+            class="text-sm font-semibold text-emerald-600"
+          >
+            12.00 €
+          </output>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercices JavaScript - Partie 3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body class="bg-slate-100 font-sans p-6 text-slate-800">
+    <header class="max-w-4xl mb-4 mx-auto space-y-6">
+      <h1 class="text-3xl font-bold text-slate-900 mb-2">
+        Exercices JavaScript — Partie 3
+      </h1>
+      <p class="text-slate-600 text-sm">
+        Fonctions fléchées, Tableaux, Rest/Spread et Manipulation de chaînes.
+      </p>
+    </header>
+    <main class="max-w-4xl mx-auto space-y-6">
+      <!-- Ex 1 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 1 : Fonction fléchée d'accueil
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="prenomUtilisateur"
+            placeholder="Prénom"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="afficherAccueil()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Saluer
+          </button>
+        </form>
+        <output
+          id="resultatAccueil"
+          class="block mt-3 font-semibold text-slate-700 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 2 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 2 : Calculateur de surface (Retour explicite)
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="number"
+            id="largeur"
+            placeholder="Largeur (m)"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-36 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="number"
+            id="longueur"
+            placeholder="Longueur (m)"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-36 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="afficherSurface()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Calculer
+          </button>
+        </form>
+        <output
+          id="resultatSurface"
+          class="block mt-3 font-semibold text-slate-700 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 3 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 3 : Conversion de température (Retour implicite)
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="number"
+            id="tempCelsius"
+            placeholder="Température °C"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="convertirTemperature()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Convertir en °F
+          </button>
+        </form>
+        <output
+          id="resultatTemperature"
+          class="block mt-3 font-semibold text-slate-700 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 4 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 4 : Liste de courses (Copie et ajout via Spread `...`)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Tableau initial :
+          <code class="bg-slate-100 px-2 py-1 rounded">['Pain', 'Lait']</code>
+        </p>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="articleSaisi"
+            placeholder="Article (ex: Pommes)"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="ajouterArticle()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Ajouter via Spread
+          </button>
+        </form>
+        <output
+          id="affichageCourses"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 5 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 5 : Premier et dernier élément
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Tableau :
+          <code class="bg-slate-100 px-2 py-1 rounded"
+            >['Alice', 'Bob', 'Charlie', 'Diana']</code
+          >
+        </p>
+        <button
+          type="button"
+          onclick="afficherExtremes()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Afficher 1er et Dernier
+        </button>
+        <output
+          id="resultatExtremes"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 6 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 6 : Parcours de tableau (Boucle `for` & `innerHTML`)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Notes :
+          <code class="bg-slate-100 px-2 py-1 rounded"
+            >[12, 15, 8, 19, 10]</code
+          >
+        </p>
+        <button
+          type="button"
+          onclick="afficherNotes()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Afficher les notes
+        </button>
+        <output id="affichageNotes" class="block mt-3 min-h-[2.5rem]"></output>
+      </section>
+
+      <!-- Ex 7 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 7 : Somme variable de valeurs (Paramètre Rest `...`)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Envoie d'un nombre variable de notes à une fonction via `...notes`.
+        </p>
+        <button
+          type="button"
+          onclick="calculerSommeRest()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Calculer la somme (12, 15, 8, 19, 10)
+        </button>
+        <output
+          id="resultatMoyenneTableau"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 8 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 8 : Recherche de la valeur maximale (Boucle `for`)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Valeurs :
+          <code class="bg-slate-100 px-2 py-1 rounded"
+            >[45, 12, 89, 34, 67, 2]</code
+          >
+        </p>
+        <button
+          type="button"
+          onclick="chercherMaximum()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Trouver le max
+        </button>
+        <output id="resultatMax" class="block mt-3 min-h-[1.5rem]"></output>
+      </section>
+
+      <!-- Ex 9 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 9 : Mise en majuscules (.toUpperCase)
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="texteMinuscule"
+            placeholder="Saisir un texte"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="convertirMajuscules()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Transformer
+          </button>
+        </form>
+        <output
+          id="resultatMajuscules"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 10 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 10 : Comptage de voyelles
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="motVoyelles"
+            placeholder="Mot ou phrase"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="compterVoyelles()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Compter voyelles
+          </button>
+        </form>
+        <output
+          id="resultatVoyelles"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 11 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 11 : Inversion de chaîne (Boucle `for` à l'envers)
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="motAInverser"
+            placeholder="Mot à inverser"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="inverserChaine()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Inverser
+          </button>
+        </form>
+        <output
+          id="resultatInversion"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 12 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 12 : Recherche dans un tableau (.includes)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Villes :
+          <code class="bg-slate-100 px-2 py-1 rounded"
+            >['Paris', 'Lyon', 'Marseille', 'Lille']</code
+          >
+        </p>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center"
+        >
+          <input
+            type="text"
+            id="villeCherchee"
+            placeholder="Nom de ville"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="rechercherVille()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Rechercher
+          </button>
+        </form>
+        <output
+          id="resultatRechercheVille"
+          class="block mt-3 min-h-[1.5rem]"
+        ></output>
+      </section>
+
+      <!-- Ex 13 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 13 : Suppression du dernier élément (.pop)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Supprime le dernier article de la liste de l'exercice 4.
+        </p>
+        <button
+          type="button"
+          onclick="retirerDernierArticle()"
+          class="bg-rose-600 hover:bg-rose-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Retirer le dernier article
+        </button>
+        <output id="resultatPop" class="block mt-3 min-h-[1.5rem]"></output>
+      </section>
+
+      <!-- Ex 14 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-3">
+          Exercice 14 : Filtrage manuel de tableau (`for` & `if`)
+        </h2>
+        <p class="text-sm text-slate-500 mb-3">
+          Source :
+          <code class="bg-slate-100 px-2 py-1 rounded"
+            >[5, 12, 8, 130, 44]</code
+          >
+        </p>
+        <button
+          type="button"
+          onclick="filtrerGrandNombres()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+        >
+          Filtrer (> 10)
+        </button>
+        <output id="resultatFiltre" class="block mt-3 min-h-[1.5rem]"></output>
+      </section>
+
+      <!-- Ex 15 -->
+      <section
+        class="bg-white p-6 rounded-xl shadow-sm border border-slate-200"
+      >
+        <h2 class="text-lg font-semibold text-slate-800 mb-4">
+          Exercice 15 : Synthèse — Annuaire (Rest, Spread & `innerHTML`)
+        </h2>
+        <form
+          onsubmit="return false;"
+          class="flex flex-wrap gap-3 items-center mb-3"
+        >
+          <input
+            type="text"
+            id="nomContact"
+            placeholder="Nom principal"
+            class="border border-slate-300 rounded-lg px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="button"
+            onclick="ajouterPlusieursContacts('Lucie', 'Marc')"
+            class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Ajouter (Saisi + Lucie & Marc)
+          </button>
+          <button
+            type="button"
+            onclick="reinitialiserAnnuaire()"
+            class="bg-slate-600 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg transition"
+          >
+            Réinitialiser
+          </button>
+        </form>
+        <output id="affichageAnnuaire" class="block mt-3 min-h-[3rem]"></output>
+      </section>
+    </main>
+  </body>
+</html>
