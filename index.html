@@ -15,6 +15,7 @@
         <h1>bienvenue sur le site</h1>
     </header>
     <main>
+<!--
         <section class = base site >
             <h2>mon site de vente de bd</h2>
                 <p></p>
@@ -45,10 +46,135 @@
                 <p id = nbpages-zone>b</p>
                 <p id = annee-zone>c</p>
                 <p id = prix-zone>d</p>
-                
-        </section>
+-->                
         
+        <section class = "dons">
+          <h1>
+            pour me soutenir
+          </h1>
 
+          <p>
+            Objets complexes, programmation fonctionnelle et persistance
+            LocalStorage
+          </p>
+        </section>
+
+        <button
+          onclick="reinitialiserDonnees()"
+          >
+          Réinitialiser les données
+        </button>
+     <!-- zone de navigation de projet-->
+        <section>
+          <!-- Liste des cartes injectées -->
+          <section
+            id="liste-BD"
+            aria-label="Liste des bandes dessinées"
+          >
+
+<!-- Injecté dynamiquement en JS -->
+          </section>
+      
+      </section>
+
+      <!-- Zone principale -->
+      <section>
+        <!-- Formulaire d'ajout -->
+        <section>
+          <h2>
+            Ajouter un ouvrage
+          </h2>
+
+          <form
+            id="formulaire-livre"
+            onsubmit="ajouterLivre(event)"
+          >
+            <label>
+              Titre
+
+              <input
+                type="text"
+                id="champ-titre"
+                oninput="verifierSaisieTitre(this)"
+                required
+              />
+            </label>
+
+            <label>
+              Auteur
+
+              <input
+                type="text"
+                id="champ-auteur"
+                placeholder="Ex: Antoine de Saint-Exupéry"
+                required
+              />
+            </label>
+
+            <fieldset>
+              <label>
+                Année
+
+                <input
+                  type="number"
+                  id="champ-annee"
+                  placeholder="1943"
+                  required
+                />
+              </label>
+
+              <label>
+                Prix (€)
+
+                <input
+                  type="number"
+                  step="0.01"
+                  id="champ-prix"
+                  placeholder="12.00"
+                  required
+                />
+              </label>
+            </fieldset>
+
+            <button
+              type="submit"
+              >
+              Ajouter au catalogue
+            </button>
+          </form>
+        </section>
+
+        <!-- Zone de filtrage et catalogue -->
+        <section>
+          <!-- Barre de recherche et de filtres -->
+          <form
+            onsubmit="return false;"
+          >
+            <input
+              type="search"
+              id="recherche-texte"
+              oninput="filtrerEtAfficherCatalogue()"
+              placeholder="Rechercher par titre ou auteur..."
+              />
+
+            <select
+              id="filtre-epoque"
+              onchange="filtrerEtAfficherCatalogue()"
+            >
+              <option value="tous">Toutes les époques</option>
+              <option value="Classique">Classique (&lt; 1900)</option>
+              <option value="20ème siècle">20ème siècle (1900-1999)</option>
+              <option value="Contemporain">Contemporain (&gt;= 2000)</option>
+            </select>
+          </form>
+
+          <!-- Liste des cartes injectées -->
+          <section
+            id="liste-BD"
+            aria-label="Liste des bandes dessinées"
+          >
+            <!-- Injecté dynamiquement en JS -->
+          </section>
 
 
     </main>
