@@ -4,7 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ma vente de bd</title>
+    fetch("./data/liste.json")
+    <script src="js/modele/bd.js" defer></script>
     <script src="js/scrpt.js" defer></script>
+    <script src="js/modele/bd.js" defer></script>
+    <script src="js/services/cathalogservice.js" defer></script>
+    <script src="js/services/localservice.js" defer></script>
+
+    
+    
     <link rel="stylesheet" href="css/vente.css">
   </head>
 <body>
@@ -15,126 +23,124 @@
         <h1>bienvenue sur le site</h1>
     </header>
     <main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <!--formulaire de don-->
+
+        <section class="dons">
+    <h1>Faites un don pour le meilleur contenu BD !</h1>
+
+    <form onsubmit="faireUnDon(event)" id="donation-form">
+        <input
+            type="number"
+            id="montant"
+            value="10"
+            min="1"
+            placeholder="Montant du don (€)"
+            required
+        >
+
+        <button type="submit">Faire un don</button>
+    </form>
+
+    <p>Total récolté : <span id="total">0</span> € / 1800 €</p>
+    <p>Il reste : <span id="restant">1800</span> € à atteindre</p>
+    <p>Nombre de dons : <span id="nbDons">0</span></p>
+
+    <button onclick="reinitialisercaniote()">
+      reinitialiser le montant
+    </button>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--nav de projet-->
 <!--
-        <section class = base site >
-            <h2>mon site de vente de bd</h2>
-                <p></p>
-        <form onssubmit="modifierbase(); return false;"
-          id="formulaire-de-bd"
-          onsubmit="modifierbase(event)">
-            
-        
-          <input 
-            type="text" id="nom" value="sale-gosse" placeholder="Titre" required/>
-          <input
-            type="text" id="nbpages" value="tekenarr" placeholder="Nombre de pages" required/>
-          <input
-            type="number" id="annee"  value="2026" placeholder="Année" required/>
-          <input
-            type="number" id="prix" value="15.00" step="0.01"  placeholder="Prix (€)" required/>
-
-          <button>
-            
-            Mettre à jour la carte
-          </button>
-        </form>
-        </section>
-
-        <section class = carte >
-            <h2>resultat</h2>
-                <p id = nom-zone>a</p>
-                <p id = nbpages-zone>b</p>
-                <p id = annee-zone>c</p>
-                <p id = prix-zone>d</p>
--->                
-        
-        <section class = "dons">
-          <h1>
-            pour me soutenir
-          </h1>
-
-          <p>
-            Objets complexes, programmation fonctionnelle et persistance
-            LocalStorage
-          </p>
-        </section>
-
-        <button
-          onclick="reinitialiserDonnees()"
-          >
-          Réinitialiser les données
-        </button>
-     <!-- zone de navigation de projet-->
-        <section>
-          <!-- Liste des cartes injectées -->
-          <section
-            id="liste-BD"
+<section
+            id="liste-derniermes-BD"
             aria-label="Liste des bandes dessinées"
           >
+-->
 
-<!-- Injecté dynamiquement en JS -->
-          </section>
+
+
+
+
+         
+
       
-      </section>
-
-      <!-- Zone principale -->
       <section>
-        <!-- Formulaire d'ajout -->
+        
         <section>
           <h2>
-            Ajouter un ouvrage
+            Ajouter une création
           </h2>
 
           <form
-            id="formulaire-livre"
-            onsubmit="ajouterLivre(event)"
+            id="formulaire-BD"
+            onsubmit="ajouterBD(event)"
           >
             <label>
               Titre
-
-              <input
-                type="text"
-                id="champ-titre"
-                oninput="verifierSaisieTitre(this)"
-                required
-              />
+              <input type="text" id="champ-titre", placeholder="sale gosse", oninput="verifierSaisieTitre(this)" required/>
             </label>
-
             <label>
-              Auteur
-
-              <input
-                type="text"
-                id="champ-auteur"
-                placeholder="Ex: Antoine de Saint-Exupéry"
-                required
-              />
+              version
+              <input type="text" id="champ-version" placeholder="basique" required/>
             </label>
-
-            <fieldset>
               <label>
                 Année
-
-                <input
-                  type="number"
-                  id="champ-annee"
-                  placeholder="1943"
-                  required
-                />
+                <input type="number" id="champ-annee" placeholder="2027" required />
               </label>
-
               <label>
                 Prix (€)
-
-                <input
-                  type="number"
-                  step="0.01"
-                  id="champ-prix"
-                  placeholder="12.00"
-                  required
+                <input type="number" step="0.01"  id="champ-prix"  placeholder="25.99" required
                 />
               </label>
-            </fieldset>
+              <label>
+                nb pages
+                <input type="number" id="champ-page"  placeholder="400" required
+                />
+              </label>
+              <label>
+                
+                <input type="file" id="champ-image"  placeholder="img\crrusta-soi.png" required
+                />
+              </label>
+            
 
             <button
               type="submit"
@@ -143,10 +149,17 @@
             </button>
           </form>
         </section>
+        <section id="catalogue"></section>
 
-        <!-- Zone de filtrage et catalogue -->
+
+
+
+        <!--
+       
+        id panier
+
         <section>
-          <!-- Barre de recherche et de filtres -->
+          
           <form
             onsubmit="return false;"
           >
@@ -168,13 +181,20 @@
             </select>
           </form>
 
-          <!-- Liste des cartes injectées -->
+          
           <section
             id="liste-BD"
             aria-label="Liste des bandes dessinées"
           >
-            <!-- Injecté dynamiquement en JS -->
+           
           </section>
+        
+          <button
+          onclick="reinitialiserDonnees()"
+          >
+          reinitialiser les données
+        </button>
+      -->
 
 
     </main>
