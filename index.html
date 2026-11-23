@@ -1,203 +1,238 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ma vente de bd</title>
-    fetch("./data/liste.json")
-    <script src="js/modele/bd.js" defer></script>
-    <script src="js/scrpt.js" defer></script>
-    <script src="js/modele/bd.js" defer></script>
-    <script src="js/services/cathalogservice.js" defer></script>
-    <script src="js/services/localservice.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma vente de BD</title>
 
-    
-    
     <link rel="stylesheet" href="css/vente.css">
-  </head>
+
+    <script src="js/modele/bd.js" defer></script>
+    <script src="js/services/localservice.js" defer></script>
+    <script src="js/services/catalogueservice.js" defer></script>
+    <script src="js/script.js" defer></script>
+</head>
+
 <body>
-    <header>
-        <nav>
-            <a href=""></a>
-        </nav>
-        <h1>bienvenue sur le site</h1>
-    </header>
-    <main>
 
+<header>
+    <h1>Bienvenue sur ma boutique de BD</h1>
 
+    <p>
+        Découvrez mes différents projets de bandes dessinées.
+        Des créations accessibles à tous, avec des prix variés.
+        Merci aux donateurs pour leur soutien !
+    </p>
 
+    <section class="statistiques">
+        <article>
+            <h3>Nombre de BD</h3>
+            <output id="stat-total">0</output>
+        </article>
 
+        <article>
+            <h3>Valeur totale</h3>
+            <output id="stat-valeur">0.00 €</output>
+        </article>
 
+        <article>
+            <h3>Prix moyen</h3>
+            <output id="stat-moyen">0.00 €</output>
+        </article>
 
+        <article>
+            <h3>Prix maximum / minimum</h3>
+            <output id="stat-min-max">Max : 0 € | Min : 0 €</output>
+        </article>
+    </section>
+</header>
 
+<main>
 
+    
+    <section class="dons">
+        <h2>Soutenez la création de BD !</h2>
 
+        <form id="donation-form">
+            <label for="montant">Montant du don (€)</label>
 
-
-
-
-
-
-
-
-
-
-      
-      <!--formulaire de don-->
-
-        <section class="dons">
-    <h1>Faites un don pour le meilleur contenu BD !</h1>
-
-    <form onsubmit="faireUnDon(event)" id="donation-form">
-        <input
-            type="number"
-            id="montant"
-            value="10"
-            min="1"
-            placeholder="Montant du don (€)"
-            required
-        >
-
-        <button type="submit">Faire un don</button>
-    </form>
-
-    <p>Total récolté : <span id="total">0</span> € / 1800 €</p>
-    <p>Il reste : <span id="restant">1800</span> € à atteindre</p>
-    <p>Nombre de dons : <span id="nbDons">0</span></p>
-
-    <button onclick="reinitialisercaniote()">
-      reinitialiser le montant
-    </button>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--nav de projet-->
-<!--
-<section
-            id="liste-derniermes-BD"
-            aria-label="Liste des bandes dessinées"
-          >
--->
-
-
-
-
-
-         
-
-      
-      <section>
-        
-        <section>
-          <h2>
-            Ajouter une création
-          </h2>
-
-          <form
-            id="formulaire-BD"
-            onsubmit="ajouterBD(event)"
-          >
-            <label>
-              Titre
-              <input type="text" id="champ-titre", placeholder="sale gosse", oninput="verifierSaisieTitre(this)" required/>
-            </label>
-            <label>
-              version
-              <input type="text" id="champ-version" placeholder="basique" required/>
-            </label>
-              <label>
-                Année
-                <input type="number" id="champ-annee" placeholder="2027" required />
-              </label>
-              <label>
-                Prix (€)
-                <input type="number" step="0.01"  id="champ-prix"  placeholder="25.99" required
-                />
-              </label>
-              <label>
-                nb pages
-                <input type="number" id="champ-page"  placeholder="400" required
-                />
-              </label>
-              <label>
-                
-                <input type="file" id="champ-image"  placeholder="img\crrusta-soi.png" required
-                />
-              </label>
-            
-
-            <button
-              type="submit"
-              >
-              Ajouter au catalogue
-            </button>
-          </form>
-        </section>
-        <section id="catalogue"></section>
-
-
-
-
-        <!--
-       
-        id panier
-
-        <section>
-          
-          <form
-            onsubmit="return false;"
-          >
             <input
-              type="search"
-              id="recherche-texte"
-              oninput="filtrerEtAfficherCatalogue()"
-              placeholder="Rechercher par titre ou auteur..."
-              />
-
-            <select
-              id="filtre-epoque"
-              onchange="filtrerEtAfficherCatalogue()"
+                type="number"
+                id="montant"
+                value="10"
+                min="1"
+                step="0.01"
+                required
             >
-              <option value="tous">Toutes les époques</option>
-              <option value="Classique">Classique (&lt; 1900)</option>
-              <option value="20ème siècle">20ème siècle (1900-1999)</option>
-              <option value="Contemporain">Contemporain (&gt;= 2000)</option>
-            </select>
-          </form>
 
-          
-          <section
-            id="liste-BD"
-            aria-label="Liste des bandes dessinées"
-          >
-           
-          </section>
-        
-          <button
-          onclick="reinitialiserDonnees()"
-          >
-          reinitialiser les données
+            <button type="submit">Faire un don</button>
+        </form>
+
+        <div class="don-stats">
+            <p>Total récolté :
+                <strong><span id="total">0.00</span> €</strong>
+            </p>
+
+            <p>Il reste :
+                <strong><span id="restant">1800.00</span> €</strong>
+            </p>
+
+            <p>Nombre de dons :
+                <strong id="nbDons">0</strong>
+            </p>
+        </div>
+
+        <button type="button" id="reset-dons" class="btn-reset">
+            Réinitialiser la cagnotte
         </button>
-      -->
+    </section>
 
 
-    </main>
-    <footer></footer>
+    <!-- FORMULAIRE D'AJOUT -->
+    <section class="formulaire-section">
+
+        <h2>Ajouter une création</h2>
+
+        <form id="formulaire-BD">
+
+            <label for="champ-titre">Titre</label>
+            <input
+                type="text"
+                id="champ-titre"
+                placeholder="Ex : Sale gosse"
+                minlength="2"
+                required
+            >
+
+            <label for="champ-version">Version</label>
+            <input
+                type="text"
+                id="champ-version"
+                placeholder="Ex : Édition originale"
+                required
+            >
+
+            <label for="champ-annee">Année</label>
+            <input
+                type="number"
+                id="champ-annee"
+                placeholder="2027"
+                min="1"
+                required
+            >
+
+            <label for="champ-genre">Genre</label>
+            <select id="champ-genre" required>
+                <option value="">Choisir un genre</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Fantastique">Fantastique</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Science-fiction">Science-fiction</option>
+                <option value="Humour">Humour</option>
+                <option value="Drame">Drame</option>
+                <option value="Policier">Policier</option>
+                <option value="Historique">Historique</option>
+                <option value="Autre">Autre</option>
+            </select>
+
+            <label for="champ-prix">Prix (€)</label>
+            <input
+                type="number"
+                id="champ-prix"
+                placeholder="25.99"
+                min="0"
+                step="0.01"
+                required
+            >
+
+            <label for="champ-page">Nombre de pages</label>
+            <input
+                type="number"
+                id="champ-page"
+                placeholder="120"
+                min="1"
+                required
+            >
+
+            <label for="champ-image">Couverture de la BD</label>
+            <input
+                type="file"
+                id="champ-image"
+                accept="image/*"
+            >
+
+            <button type="submit">
+                Ajouter au catalogue
+            </button>
+
+        </form>
+    </section>
+
+
+    <!-- CATALOGUE -->
+    <section class="catalogue-section">
+
+        <h2>Notre catalogue</h2>
+
+        <!-- RECHERCHE ET FILTRES -->
+        <div class="filtres">
+
+            <label for="recherche-texte">Rechercher une BD</label>
+            <input
+                type="search"
+                id="recherche-texte"
+                placeholder="Rechercher par titre ou version..."
+            >
+
+            <label for="filtre-genre">Filtrer par genre</label>
+            <select id="filtre-genre">
+                <option value="tous">Tous les genres</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Fantastique">Fantastique</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Science-fiction">Science-fiction</option>
+                <option value="Humour">Humour</option>
+                <option value="Drame">Drame</option>
+                <option value="Policier">Policier</option>
+                <option value="Historique">Historique</option>
+                <option value="Autre">Autre</option>
+            </select>
+
+            <label for="filtre-pages">Nombre de pages</label>
+            <select id="filtre-pages">
+                <option value="tous">Toutes les longueurs</option>
+                <option value="peu">Peu (1 à 100 pages)</option>
+                <option value="normal">Normal (101 à 300 pages)</option>
+                <option value="beaucoup">Beaucoup (plus de 300 pages)</option>
+            </select>
+
+            <button type="button" id="reset-filtres">
+                Effacer les filtres
+            </button>
+
+        </div>
+
+
+        <!-- AFFICHAGE DES BD -->
+        <section
+            id="catalogue"
+            class="catalogue"
+            aria-label="Catalogue des bandes dessinées"
+        >
+        </section>
+
+        <button type="button" id="reset-catalogue" class="btn-reset">
+            Réinitialiser le catalogue
+        </button>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>Ma boutique de bandes dessinées</p>
+</footer>
+
 </body>
 </html>

@@ -1,37 +1,16 @@
-export class BD {
-    #prix;
 
-    constructor(titre, version, annee, prix, pages) {
-        this.titre = titre;
-        this.version = version;
-        this.annee = annee;
-        this.prix = prix;
-        this.pages = pages;
-    }
+const creerBD = (titre, version, annee, genre, prix, pages, image = "") => {
 
-    get prix() {
-        return this.#prix;
-    }
+    return {
+        id: "bd_" + Date.now() + "_" + Math.random().toString(36).slice(2, 8),
+        titre: titre,
+        version: version,
+        annee: annee,
+        genre: genre,
+        prix: prix,
+        pages: pages,
+        image: image,
+        dateAjout: new Date().toISOString()
+    };
 
-    set prix(valeur) {
-        if (valeur < 0) {
-            this.#prix = 0;
-        } else {
-            this.#prix = Number(valeur);
-        }
-    }
-
-    afficher() {
-        return `${this.titre} - ${this.prix} €`;
-    }
-
-    toJSON() {
-        return {
-            titre: this.titre,
-            version: this.version,
-            annee: this.annee,
-            prix: this.prix,
-            pages: this.pages
-        };
-    }
-}
+};

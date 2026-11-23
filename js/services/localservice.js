@@ -1,28 +1,54 @@
-import { BD } from "../models/BD.js";
 
-export class StorageService {
+const localService = {
 
-    static sauvegarder(catalogue) {
-        localStorage.setItem(
-            "catalogueBD",
-            JSON.stringify(catalogue)
-        );
+    // Récupérer des données
+    charger: (cle, valeurParDefaut) => {
+
+        try {
+
+            const donnees = localStorage.getItem(cle);
+
+            if (donnees === null) {
+                return valeurParDefaut;
+            }
+
+            return JSON.parse(donnees);
+
+        } catch (erreur) {
+
+            console.error("Erreur de chargement :", erreur);
+
+            return valeurParDefaut;
+
+        }
+
+    },
+
+
+    // Sauvegarder des données
+    sauvegarder: (cle, donnees) => {
+
+        try {
+
+            localStorage.setItem(cle, JSON.stringify(donnees));
+            return true;
+
+        } catch (erreur) {
+
+            console.error("Erreur de sauvegarde :", erreur);
+
+            return false;
+
+        }
+
+    },
+
+
+    // Supprimer des données
+    supprimer: (cle) => {
+
+        localStorage.removeItem(cle);
+
     }
 
-    static charger() {
-
-        const data = JSON.parse(
-            localStorage.getItem("catalogueBD")
-        ) || [];
-
-        return data.map(
-            bd => new BD(
-                bd.titre,
-                bd.version,
-                bd.annee,
-                bd.prix,
-                bd.pages
-            )
-        );
-    }
-}
+};

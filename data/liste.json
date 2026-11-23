@@ -1,0 +1,23 @@
+[
+    {
+        "titre": "Astérix",
+        "version": "Tome 1",
+        "annee": 1961,
+        "prix": 12,
+        "pages": 48
+    },
+    {
+        "titre": "Tintin",
+        "version": "Le Lotus Bleu",
+        "annee": 1936,
+        "prix": 14,
+        "pages": 62
+    },
+    {
+        "titre": "Lucky Luke",
+        "version": "Dalton City",
+        "annee": 1969,
+        "prix": 11,
+        "pages": 46
+    }
+]

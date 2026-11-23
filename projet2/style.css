@@ -1,0 +1,650 @@
+:root {
+    --space-dark: #050816;
+    --space-blue: #0b1026;
+    --space-purple: #1a1333;
+    --star-white: #eaf4ff;
+    --star-blue: #7fd6ff;
+    --nebula-purple: #9d7bff;
+    --nebula-pink: #ff7ee2;
+    --accent-cyan: #4de8ff;
+    --accent-violet: #8a6cff;
+}
+
+/* ==========================================
+   ÉCRAN DE DÉMARRAGE
+========================================== */
+
+#ecran-intro {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background:
+        radial-gradient(circle,
+            #20154b 0%,
+            #0b1026 60%,
+            #050816 100%);
+    color: #c8d7ff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+
+    transition: opacity 2s ease;
+}
+
+#texte-intro {
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-align: center;
+    opacity: 0;
+    animation: apparition 2s forwards;
+}
+
+@keyframes apparition {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.disparition {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   BASE
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1px, transparent 1px);
+
+background-size:
+    120px 120px,
+    200px 200px;
+
+background-position:
+    0 0,
+    50px 50px;
+    background:
+        radial-gradient(circle at top,
+            #1a1333 0%,
+            #0b1026 40%,
+            #050816 100%);
+    color: #d7e4ff;
+}
+
+
+/* ==========================================
+   NAVBAR
+========================================== */
+
+.navbar {
+    height: 75px;
+    padding: 0 8%;
+    background: rgba(20, 25, 50, 0.85);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #4de8ff33;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e8e9ef;
+}
+
+.navbar h1 {
+    font-size: 23px;
+}
+
+.navbar h1 span {
+    color: #4de8ff;
+}
+
+#saveStatus {
+    font-size: 13px;
+    color: #4de8ff;
+}
+
+
+/* ==========================================
+   CONTENU PRINCIPAL
+========================================== */
+
+.container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 35px 4%;
+}
+
+section {
+    margin-bottom: 45px;
+}
+
+
+/* ==========================================
+   ORGANISATION DES COLONNES
+========================================== */
+
+.creator-layout {
+    display: grid;
+
+    grid-template-columns: 320px minmax(0, 1fr);
+
+    gap: 40px;
+    align-items: start;
+
+    width: 100%;
+}
+
+/* Colonne de gauche */
+
+
+
+
+
+/* ==========================================
+   PRÉSENTATION
+========================================== */
+
+.welcome h2 {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.welcome p,
+.section-header p {
+    color: #85899a;
+}
+
+
+/* ==========================================
+   CHAMPS ET BOUTONS
+========================================== */
+
+input,
+select {
+    padding: 12px;
+    
+    border-radius: 8px;
+    margin-top: 12px;
+    background: #45a47880;
+}
+
+button {
+    border: none;
+    background: #45a477;
+    color: white;
+
+    padding: 12px 18px;
+    border-radius: 8px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #45a477;
+}
+
+.section h2 {
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   PERSONNALISATION DE L'ÉTOILE
+========================================== */
+
+.star-card {
+    max-width: 450px;
+}
+
+.star-card label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 5px;
+}
+
+.star-card input,
+.star-card select {
+    width: 100%;
+}
+
+.star-card input[type="color"] {
+    height: 45px;
+    cursor: pointer;
+}
+
+.star-card input[type="range"] {
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   CARTES DES PLANÈTES
+========================================== */
+
+#planetContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.planet-card {
+    background: rgb(0, 0, 0);
+    border: 1px solid #000000;
+
+    padding: 22px;
+    border-radius: 12px;
+
+    transition: 0.2s;
+}
+
+.planet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px #0000000a;
+}
+
+.planet-preview {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-bottom: 18px;
+}
+
+.planet-card h3 {
+    margin-bottom: 8px;
+}
+
+.planet-card p {
+    color: #85899a;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.delete-btn {
+    background: #f2e7e7;
+    color: #bc5a5a;
+}
+
+
+/* ==========================================
+   VUE SPATIALE
+========================================== */
+
+/* Colonne de droite */
+
+.visual-section {
+    min-width: 0;
+
+    position: sticky;
+    top: 20px;
+
+    align-self: start;
+}
+
+/* Cadre de visualisation */
+
+#solarView {
+    width: 100%;
+
+    height: calc(100vh - 100px);
+    min-height: 500px;
+    max-height: 850px;
+
+    background: #101427;
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Zone contenant les orbites */
+
+#orbitContainer {
+    width: min(850px, 100%);
+    aspect-ratio: 1 / 1;
+    height: auto;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    translate: 0 0;
+    transition: translate 0.12s ease-out;
+}
+
+/* Étoile centrale */
+
+#starVisual {
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+    z-index: 2;
+}
+
+#starVisual {
+    transition: filter 0.5s ease;
+}
+
+#starVisual {
+    transition: filter 0.3s ease;
+}
+
+#solarView.is-pressed #starVisual {
+    filter: brightness(1.8);
+}
+
+/* Soleil sous pression */
+
+.gravity-active #starVisual {
+    filter:
+        brightness(1.8)
+        drop-shadow(0 0 20px #ffffff)
+        drop-shadow(0 0 35px #ffce70)
+        drop-shadow(0 0 65px #ffce70);
+}
+
+/* Orbites perturbées */
+
+.gravity-active .orbit {
+    filter: brightness(1.5);
+}
+
+/* ==========================================
+   ORBITES
+========================================== */
+
+.orbit {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border: 1px solid #ffffff40;
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+
+    animation: revolution linear infinite;
+
+    transition: filter 0.5s ease;
+}
+
+@keyframes revolution {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotateX(var(--tilt-y, 0deg))
+            rotateY(var(--tilt-x, 0deg))
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotateX(var(--tilt-y, 0deg))
+            rotateY(var(--tilt-x, 0deg))
+            rotate(360deg);
+    }
+}
+
+
+/* ==========================================
+   PLANÈTES EN MOUVEMENT
+========================================== */
+
+.orbit-planet {
+    position: absolute;
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+
+    /* Déplacement fluide */
+    translate: 0 0;
+    transition: translate 1s cubic-bezier(0.2, 0.8, 0.3, 1);
+    transition:
+        translate 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: translate;
+}
+
+
+
+
+/* ==========================================
+   MODALE DE CRÉATION
+========================================== */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    background: #0009;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 400px;
+
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.secondary {
+    background: #e9eaf0;
+    color: #333;
+}
+
+
+/* ==========================================
+   RESPONSIVE : TABLETTES ET TÉLÉPHONES
+========================================== */
+
+@media screen and (max-width: 850px) {
+
+    .creator-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .creator-sidebar {
+        width: 100%;
+    }
+
+    .visual-section {
+        position: relative;
+        top: auto;
+    }
+
+    #solarView {
+        height: 500px;
+        min-height: 0;
+    }
+
+    #orbitContainer {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+}
+
+@media screen and (max-width: 600px) {
+
+    .welcome h2 {
+        font-size: 27px;
+    }
+
+    .container {
+        padding: 25px 15px;
+    }
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    #solarView {
+        height: 320px;
+    }
+
+    #orbitContainer {
+        transform: scale(0.8);
+    }
+
+    #planetContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   HALO LUMINEUX DU SOLEIL
+========================================== */
+
+
+
+#starVisual {
+    position: relative;
+    border-radius: 50%;
+
+    transition:
+        filter 0.4s ease,
+        box-shadow 0.4s ease;
+
+    box-shadow:
+        0 0 20px var(--star-glow, #ffce70),
+        0 0 45px var(--star-glow, #ffce70),
+        0 0 80px var(--star-glow, #ffce70);
+}
+
+/* Intensification du halo pendant le clic */
+
+#solarView.is-pressed #starVisual {
+    filter: brightness(1.8);
+
+    box-shadow:
+        0 0 30px var(--star-glow, #ffce70),
+        0 0 65px var(--star-glow, #ffce70),
+        0 0 110px var(--star-glow, #ffce70),
+        0 0 160px var(--star-glow, #ffce70);
+}
+
+
+
+input,
+select {
+    background: rgba(255,255,255,0.05);
+    color: #eaf4ff;
+
+    border: 1px solid rgba(77,232,255,0.25);
+}
+
+
+button {
+    background: linear-gradient(
+        135deg,
+        #4de8ff,
+        #8a6cff
+    );
+
+    color: white;
+
+    box-shadow:
+        0 0 15px rgba(77,232,255,0.4);
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 25px rgba(77,232,255,0.6),
+        0 0 45px rgba(138,108,255,0.5);
+}
+
+.planet-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,25,50,0.95),
+            rgba(8,12,25,0.95)
+        );
+
+    border: 1px solid rgba(77,232,255,0.15);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.35);
+}
+
+.planet-card:hover {
+    border-color: rgba(77,232,255,0.4);
+
+    box-shadow:
+        0 0 20px rgba(77,232,255,0.15),
+        0 0 50px rgba(138,108,255,0.15);
+
+    transform: translateY(-5px);
+}
+
