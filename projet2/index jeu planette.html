@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Creator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- BARRE DE NAVIGATION -->
+    <header class="navbar">
+        <h1>Solar<span>Creator</span></h1>
+        <output id="saveStatus">Sauvegardé</output>
+        <button id="resetSystemBtn" type="button">
+    Réinitialiser
+</button>
+    </header>
+
+    <!-- ÉCRAN D'INTRODUCTION -->
+    <aside id="ecran-intro">
+        <p id="texte-intro">INITIALISATION DU SIMULATEUR</p>
+    </aside>
+
+    <!-- INTERFACE PRINCIPALE -->
+    <main class="container">
+
+        <!-- VUE SPATIALE -->
+        <section id="solarView">
+
+            <figure id="orbitContainer">
+                <span id="starVisual"></span>
+            </figure>
+
+            <!-- MENU DU SOLEIL -->
+            <div id="starMenu" class="star-menu hidden">
+
+                <button type="button" id="addPlanetBtn">
+                    + Ajouter une planète
+                </button>
+
+                <button type="button" id="editStarBtn">
+                    Modifier l'étoile
+                </button>
+
+                <button type="button" id="openPlanetDrawerBtn">
+                    Gérer les planètes
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- BULLE DES PLANÈTES -->
+        <button
+            type="button"
+            id="planetBubble"
+            class="planet-bubble"
+            aria-label="Afficher les planètes">
+
+            <span>☼</span>
+
+        </button>
+
+        <!-- PANNEAU DES PLANÈTES -->
+        <aside id="planetDrawer" class="planet-drawer hidden">
+
+            <header class="drawer-header">
+
+                <div>
+                    <h2>Ton univers</h2>
+                    <p id="planetCount">0 / 10 planètes</p>
+                </div>
+
+                <button type="button" id="closePlanetDrawer">
+                    ×
+                </button>
+
+            </header>
+
+            <ul id="planetContainer"></ul>
+
+        </aside>
+
+    </main>
+
+    <!-- FENÊTRE DE PERSONNALISATION DE L'ÉTOILE -->
+    <dialog id="starModal" class="modal">
+
+        <article class="modal-content">
+
+            <h2>Personnaliser ton étoile</h2>
+
+            <label for="systemName">Nom du système</label>
+            <input type="text" id="systemName">
+
+            <label for="starName">Nom de l'étoile</label>
+            <input type="text" id="starName">
+
+            <label for="starType">Type d'étoile</label>
+            <select id="starType">
+                <option value="Naine rouge">Naine rouge</option>
+                <option value="Naine jaune">Naine jaune</option>
+                <option value="Étoile bleue">Étoile bleue</option>
+                <option value="Géante rouge">Géante rouge</option>
+                <option value="Géante bleue">Géante bleue</option>
+                <option value="Naine blanche">Naine blanche</option>
+            </select>
+
+            <label for="starColor">Couleur</label>
+            <input type="color" id="starColor">
+
+            <label for="starSize">Taille</label>
+            <input
+                type="range"
+                id="starSize"
+                min="60"
+                max="220"
+                value="130">
+
+            <p id="starSizeValue">130 px</p>
+
+            <footer class="modal-actions">
+
+                <button
+                    type="button"
+                    id="closeStarModal"
+                    class="secondary">
+
+                    Fermer
+
+                </button>
+
+            </footer>
+
+        </article>
+
+    </dialog>
+
+    <!-- FENÊTRE DE CRÉATION D'UNE PLANÈTE -->
+    <dialog id="planetModal" class="modal">
+
+        <article class="modal-content">
+
+            <h2>Nouvelle planète</h2>
+
+            <label for="planetName">Nom</label>
+            <input
+                type="text"
+                id="planetName"
+                placeholder="Ex : Terra">
+
+            <label for="planetType">Type</label>
+            <select id="planetType">
+                <option>Tellurique</option>
+                <option>Gazeuse</option>
+                <option>Glacée</option>
+                <option>Volcanique</option>
+                <option>Océanique</option>
+            </select>
+
+            <label for="planetColor">Couleur</label>
+            <input
+                type="color"
+                id="planetColor"
+                value="#548cff">
+
+            <label for="planetSize">Taille</label>
+            <input
+                type="range"
+                id="planetSize"
+                min="15"
+                max="60"
+                value="30">
+
+            <footer class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelBtn"
+                    class="secondary">
+
+                    Annuler
+
+                </button>
+
+                <button type="button" id="confirmBtn">
+                    Créer
+                </button>
+
+            </footer>
+
+        </article>
+
+    </dialog>
+
+    <!-- JAVASCRIPT -->
+    <script src="script copy.js"></script>
+
+</body>
+</html>
+ 

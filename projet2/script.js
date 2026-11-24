@@ -98,7 +98,14 @@ function loadSolarSystem() {
 solarSystem.star.type ||= "Naine jaune";
 solarSystem.star.size ||= 130;
 solarSystem.star.name ||= "Soleil jaune";
+// Ajouter une vitesse aux anciennes planètes
+solarSystem.planets.forEach(planet => {
+    if (!planet.speed) {
+        planet.speed = Math.random() * 40 + 10;
+    }
+});
             }
+            
         } catch (error) {
             console.error("Sauvegarde invalide", error);
         }
@@ -180,12 +187,15 @@ function addPlanet() {
     }
 
     const planet = {
-        id: crypto.randomUUID(),
-        name: name,
-        type: document.getElementById("planetType").value,
-        color: document.getElementById("planetColor").value,
-        size: Number(document.getElementById("planetSize").value)
-    };
+    id: crypto.randomUUID(),
+    name: name,
+    type: document.getElementById("planetType").value,
+    color: document.getElementById("planetColor").value,
+    size: Number(document.getElementById("planetSize").value),
+
+    // Vitesse de rotation aléatoire
+    speed: Math.random() * 40 + 10
+};
 
     solarSystem.planets.push(planet);
 
@@ -283,11 +293,21 @@ star.style.boxShadow = `
         orbit.style.width = orbitSize + "px";
         orbit.style.height = orbitSize + "px";
 
-        // Vitesse de rotation
-        orbit.style.animationDuration = (10 + index * 8) + "s";
+        // Vitesse propre à chaque planète
+const baseSpeed = Number(planet.speed) || (10 + index * 20);
+        
+orbit.dataset.baseSpeed = baseSpeed;
+orbit.style.animationDuration = baseSpeed + "s";
 
         const planetVisual = document.createElement("span");
         planetVisual.className = "orbit-planet";
+
+        // Intensité de la perturbation propre à chaque planète
+planetVisual.dataset.offsetX = 0;
+planetVisual.dataset.offsetY = 0;
+
+planetVisual.dataset.randomX = Math.random() * 2 - 1;
+planetVisual.dataset.randomY = Math.random() * 2 - 1;
 
         planetVisual.style.width = planet.size / 2 + "px";
         planetVisual.style.height = planet.size / 2 + "px";
@@ -348,9 +368,34 @@ function renderStarSettings() {
 // INTERACTION AVEC LES ORBITES
 // ==========================================
 
+
+// ==========================================
+// INTERACTION AVEC LES ORBITES
+// ==========================================
+
 const solarView = document.getElementById("solarView");
 
 let isDragging = false;
+let chaos = 0;
+
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+
+// Calculer la vitesse actuelle des orbites
+function updateOrbitSpeeds() {
+
+    const orbits = solarView.querySelectorAll(".orbit");
+
+    orbits.forEach(orbit => {
+
+        const baseSpeed = Number(orbit.dataset.baseSpeed);
+        const newSpeed = baseSpeed / (1 + chaos);
+
+        orbit.style.animationDuration = newSpeed + "s";
+
+    });
+}
 
 
 // Quand on appuie sur la souris
@@ -359,6 +404,9 @@ solarView.addEventListener("pointerdown", (event) => {
     if (event.button !== 0) return;
 
     isDragging = true;
+
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
 
     solarView.classList.add("is-pressed");
 
@@ -370,46 +418,82 @@ document.addEventListener("pointermove", (event) => {
 
     if (!isDragging) return;
 
-    const star = document.getElementById("starVisual");
+    // Distance parcourue depuis le dernier mouvement
+    const dxMouse = event.clientX - lastMouseX;
+    const dyMouse = event.clientY - lastMouseY;
 
-    // Position du centre du soleil
+    const movement = Math.sqrt(
+        dxMouse * dxMouse + dyMouse * dyMouse
+    );
+
+    // Mémoriser la nouvelle position
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
+
+    // Accélération uniquement si le mouvement est important
+    if (movement > 100) {
+    chaos = Math.min(chaos + 0.15, 8);
+}
+
+    // Déplacement des orbites
+    const star = document.getElementById("starVisual");
     const starRect = star.getBoundingClientRect();
 
     const centerX = starRect.left + starRect.width / 2;
     const centerY = starRect.top + starRect.height / 2;
 
-    // Distance entre la souris et le soleil
     const dx = event.clientX - centerX;
     const dy = event.clientY - centerY;
 
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance === 0) return;
+    if (distance !== 0) {
 
-    // Direction opposée à la souris
-    const directionX = -dx / distance;
-    const directionY = -dy / distance;
+        const directionX = -dx / distance;
+        const directionY = -dy / distance;
 
-    // Récupération des orbites
-    const orbits = solarView.querySelectorAll(".orbit");
+        const orbits = solarView.querySelectorAll(".orbit");
 
-    orbits.forEach((orbit, index) => {
+        orbits.forEach((orbit, index) => {
+// Intensité du décalage selon la distance au soleil
+const influence = Math.min(distance / 200, 1);
 
-        // Les orbites extérieures bougent davantage
-        const force = (index + 1) * 8;
+// Les orbites extérieures bougent davantage
+const force = (index + 1) * 30 * influence;
 
-        const x = directionX * force;
-        const y = directionY * force;
+const x = directionX * force;
+const y = directionY * force;
 
-        orbit.style.translate = `${x}px ${y}px`;
+            orbit.style.translate = `${x}px ${y}px`;
 
-    });
+        });
+
+    }
+
+    // Appliquer les nouvelles vitesses
+    updateOrbitSpeeds();
 
 });
 
 
-// Quand on relâche la souris
-document.addEventListener("pointerup", () => {
+// Récupération progressive de la vitesse
+function recoverSpeed() {
+
+    if (isDragging) return;
+
+    chaos = Math.max(chaos - 0.02, 0);
+
+    updateOrbitSpeeds();
+
+    if (chaos > 0) {
+        requestAnimationFrame(recoverSpeed);
+    }
+
+}
+
+
+// Relâchement de la souris
+function stopDragging() {
 
     if (!isDragging) return;
 
@@ -428,39 +512,13 @@ document.addEventListener("pointerup", () => {
 
     });
 
-});
+    requestAnimationFrame(recoverSpeed);
 
+}
 
+document.addEventListener("pointerup", stopDragging);
+document.addEventListener("pointercancel", stopDragging);
 
-
-// Si le clic est interrompu
-document.addEventListener("pointercancel", () => {
-
-    solarView.classList.remove("gravity-active");
-
-    orbitContainer.style.setProperty("--tilt-x", "0deg");
-    orbitContainer.style.setProperty("--tilt-y", "0deg");
-
-    solarView.querySelectorAll(".orbit-planet").forEach(planet => {
-        planet.style.translate = "0px 0px";
-    });
-
-});
-
-
-// Quand la souris quitte le système solaire
-solarView.addEventListener("mouseleave", () => {
-
-    const planets = solarView.querySelectorAll(".orbit-planet");
-
-    planets.forEach(planet => {
-
-        // Retour à la position initiale
-        planet.style.translate = "0px 0px";
-
-    });
-
-});
 
 /* =========================
    MODALE
@@ -551,5 +609,7 @@ document.getElementById("starSize")
         saveSolarSystem();
     });
 
+
+    
 loadSolarSystem();
 
